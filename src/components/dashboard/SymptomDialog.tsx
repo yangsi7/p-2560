@@ -60,7 +60,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
             <div className="bg-[#F8FAFD] border border-[#E5EDF5] rounded-lg p-4">
               <div className="mb-3">
                 <p className="text-[#022C4E] font-medium text-sm mb-1">ECG Analysis Results</p>
-                <p className="text-[#355F81] text-xs">Atrial Fibrillation detected in the 15-minute prior to the time you reported symptoms</p>
+                <p className="text-[#355F81] text-xs">Atrial Fibrillation was detected in the 15-minutes leading up to the time of reported symptoms.</p>
               </div>
 
               <div className="flex flex-col space-y-2">
