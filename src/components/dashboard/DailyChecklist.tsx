@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -61,6 +60,9 @@ export const DailyChecklist: React.FC = () => {
 
   const [isQualityReviewOpen, setIsQualityReviewOpen] = useState(false);
   
+  // Check if there are symptoms logged
+  const hasSymptoms = true; // This would be dynamic based on symptom log data
+
   const [items, setItems] = useState<ChecklistItem[]>([
     {
       id: "1",
@@ -73,15 +75,15 @@ export const DailyChecklist: React.FC = () => {
     {
       id: "2",
       title: "Charge sensor",
-      description: "Battery at 23%, charge for 30 minutes",
+      description: "Charge for 30 min to ensure a continuous monitoring experience",
       icon: <Battery className="h-5 w-5 text-[#022C4E]" />,
       completed: false,
       progressValue: 23,
     },
     {
       id: "3",
-      title: "Log a symptom",
-      description: "No symptoms logged today",
+      title: hasSymptoms ? "Review Symptom Log" : "Log a symptom", 
+      description: hasSymptoms ? "Review your logged symptoms" : "No symptoms logged today",
       icon: <Plus className="h-5 w-5 text-[#022C4E]" />,
       completed: false,
     },

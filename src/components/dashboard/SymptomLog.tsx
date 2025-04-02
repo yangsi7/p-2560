@@ -1,3 +1,4 @@
+
 import React from "react";
 interface SymptomEntry {
   id: string;
@@ -33,6 +34,11 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
       <div className="bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-0 py-2 rounded-lg">
         <div className="pl-8 pr-4">
           {entries.map((entry, index) => <div key={entry.id} className="relative cursor-pointer hover:bg-gray-50" onClick={() => onSymptomClick(entry.symptoms, entry.time)}>
+              {index === 0 && (
+                <div className="absolute left-[-20px] top-[18px] flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-[#4A73FB]"></div>
+                </div>
+              )}
               {entry.isHighlighted && <div>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[12px] h-[12px] absolute left-[-20px] top-[18px]">
                     <circle cx="6" cy="6" r="6" fill="#7AA9D9" />

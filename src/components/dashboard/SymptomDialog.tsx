@@ -11,8 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertCircle, X, Info, FileText, ExternalLink } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { HeartPulse, X, Info, FileText, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface SymptomDialogProps {
@@ -30,16 +29,6 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
   time,
   details,
 }) => {
-  const { toast } = useToast();
-
-  const handleAddDetails = () => {
-    toast({
-      title: "Adding details",
-      description: `Adding details for ${symptom}`,
-    });
-    onOpenChange(false);
-  };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="border-none sm:rounded-xl bg-white shadow-lg w-[90%] max-w-md p-0 gap-0 overflow-hidden">
@@ -47,7 +36,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
           <div className="flex justify-between items-start">
             <div className="flex items-start gap-3">
               <div className="bg-white rounded-full p-2 mt-0.5 shadow-sm">
-                <AlertCircle className="h-5 w-5 text-[#022C4E]" />
+                <HeartPulse className="h-5 w-5 text-[#022C4E]" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
@@ -91,19 +80,16 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
           </div>
 
           <TabsContent value="analysis" className="p-5 pt-4 m-0">
-            <div className="bg-[#F8FAFD] border border-[#E5EDF5] rounded-lg p-4 mb-4">
-              <div className="flex items-start gap-2">
-                <Info className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-[#022C4E] font-medium text-sm">ECG Analysis</p>
-                  <p className="text-[#355F81] text-sm">
-                    15 minutes of ECG data on either side of this symptom was analyzed.
-                  </p>
-                </div>
+            <div className="bg-[#F8FAFD] border border-[#E5EDF5] rounded-lg p-4">
+              <div className="mb-3">
+                <p className="text-[#022C4E] font-medium text-sm mb-1">ECG Analysis</p>
+                <p className="text-[#355F81] text-xs">
+                  15 minutes of ECG data on either side of this symptom was analyzed.
+                </p>
               </div>
 
-              <div className="mt-3 border-t border-[#E5EDF5] pt-3">
-                <div className="flex justify-between items-center mb-1">
+              <div className="flex flex-col space-y-2">
+                <div className="flex justify-between items-center">
                   <span className="text-[#355F81] text-sm">Atrial Fibrillation:</span>
                   <span className="text-[#022C4E] font-semibold text-sm">28% of beats</span>
                 </div>
@@ -115,12 +101,12 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
             </div>
             
             {details && (
-              <div className="text-[#355F81] text-[15px] leading-relaxed mb-3">
+              <div className="text-[#355F81] text-[15px] leading-relaxed mt-3 mb-2">
                 {details}
               </div>
             )}
             
-            <div className="mt-3 text-xs text-[#8999AA] italic">
+            <div className="mt-4 text-xs text-[#8999AA] italic">
               This analysis is for information only. Please consult your doctor for medical advice.
             </div>
           </TabsContent>
@@ -144,7 +130,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               </div>
               
               <div className="flex items-start gap-3 p-3 border border-[#E5EDF5] rounded-lg hover:bg-[#F8FAFD] transition-colors cursor-pointer">
-                <AlertCircle className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
+                <Info className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-[#022C4E] font-medium text-sm">Emergency Guidelines</p>
                   <p className="text-[#355F81] text-xs">When to seek immediate medical care</p>
@@ -154,7 +140,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
           </TabsContent>
         </Tabs>
 
-        <DialogFooter className="flex justify-end border-t border-[#F0F0F0] p-4 gap-3 bg-white">
+        <DialogFooter className="flex justify-end border-t border-[#F0F0F0] p-4 bg-white">
           <DialogClose asChild>
             <Button
               variant="outline"
@@ -163,12 +149,6 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               Close
             </Button>
           </DialogClose>
-          <Button
-            className="bg-[#003D78] hover:bg-[#022C4E] text-white"
-            onClick={handleAddDetails}
-          >
-            Add details
-          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
