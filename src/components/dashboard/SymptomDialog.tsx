@@ -1,19 +1,9 @@
-
 import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HeartPulse, X, Info, FileText, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
 interface SymptomDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -21,16 +11,14 @@ interface SymptomDialogProps {
   time: string;
   details?: string;
 }
-
 export const SymptomDialog: React.FC<SymptomDialogProps> = ({
   open,
   onOpenChange,
   symptom,
   time,
-  details,
+  details
 }) => {
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+  return <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="border-none sm:rounded-xl bg-white shadow-lg w-[90%] max-w-md p-0 gap-0 overflow-hidden">
         <div className="bg-gradient-to-r from-[#EEF4FB] to-[#F8FAFD] p-5">
           <div className="flex justify-between items-start">
@@ -40,12 +28,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2 mb-1">
-                  <Badge 
-                    variant="outline" 
-                    className="border-[#6D2CCE] bg-[#EEE2FF] text-[#6D2CCE] rounded-lg px-2 py-0.5 text-xs"
-                  >
-                    New
-                  </Badge>
+                  
                   <DialogTitle className="text-[#022C4E] text-lg font-bold tracking-tight text-left">
                     {symptom}
                   </DialogTitle>
@@ -64,16 +47,10 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
         <Tabs defaultValue="analysis" className="w-full">
           <div className="border-b border-[#F0F0F0]">
             <TabsList className="bg-transparent h-12 w-full justify-start gap-4 p-0 pl-5">
-              <TabsTrigger 
-                value="analysis"
-                className="text-[#355F81] data-[state=active]:text-[#022C4E] data-[state=active]:font-semibold data-[state=active]:border-b-2 data-[state=active]:border-[#022C4E] data-[state=active]:rounded-none data-[state=active]:shadow-none h-12 px-0"
-              >
+              <TabsTrigger value="analysis" className="text-[#355F81] data-[state=active]:text-[#022C4E] data-[state=active]:font-semibold data-[state=active]:border-b-2 data-[state=active]:border-[#022C4E] data-[state=active]:rounded-none data-[state=active]:shadow-none h-12 px-0">
                 Analysis
               </TabsTrigger>
-              <TabsTrigger 
-                value="resources"
-                className="text-[#355F81] data-[state=active]:text-[#022C4E] data-[state=active]:font-semibold data-[state=active]:border-b-2 data-[state=active]:border-[#022C4E] data-[state=active]:rounded-none data-[state=active]:shadow-none h-12 px-0"
-              >
+              <TabsTrigger value="resources" className="text-[#355F81] data-[state=active]:text-[#022C4E] data-[state=active]:font-semibold data-[state=active]:border-b-2 data-[state=active]:border-[#022C4E] data-[state=active]:rounded-none data-[state=active]:shadow-none h-12 px-0">
                 Resources
               </TabsTrigger>
             </TabsList>
@@ -100,11 +77,9 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               </div>
             </div>
             
-            {details && (
-              <div className="text-[#355F81] text-[15px] leading-relaxed mt-3 mb-2">
+            {details && <div className="text-[#355F81] text-[15px] leading-relaxed mt-3 mb-2">
                 {details}
-              </div>
-            )}
+              </div>}
             
             <div className="mt-4 text-xs text-[#8999AA] italic">
               This analysis is for information only. Please consult your doctor for medical advice.
@@ -142,15 +117,11 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
 
         <DialogFooter className="flex justify-end border-t border-[#F0F0F0] p-4 bg-white">
           <DialogClose asChild>
-            <Button
-              variant="outline"
-              className="border-[#D3DEE9] text-[#022C4E] hover:bg-[#F8FAFD] hover:text-[#022C4E]"
-            >
+            <Button variant="outline" className="border-[#D3DEE9] text-[#022C4E] hover:bg-[#F8FAFD] hover:text-[#022C4E]">
               Close
             </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 };
