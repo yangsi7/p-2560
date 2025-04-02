@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface SymptomEntry {
@@ -11,11 +12,13 @@ interface SymptomEntry {
 interface SymptomLogProps {
   entries: SymptomEntry[];
   onViewAll: () => void;
+  onSymptomClick?: (symptom: string, time: string) => void;
 }
 
 export const SymptomLog: React.FC<SymptomLogProps> = ({
   entries,
   onViewAll,
+  onSymptomClick,
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -51,7 +54,11 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
       <div className="bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-0 py-2 rounded-lg">
         <div className="pl-8 pr-4">
           {entries.map((entry, index) => (
-            <div key={entry.id} className="relative">
+            <div 
+              key={entry.id} 
+              className="relative"
+              onClick={() => onSymptomClick && onSymptomClick(entry.symptoms, entry.time)}
+            >
               {entry.isHighlighted && (
                 <div>
                   <svg
@@ -67,7 +74,9 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
                 </div>
               )}
               <div
-                className={`${index < entries.length - 1 ? "border-b" : ""} px-0 py-3 ${index < entries.length - 1 ? "border-[#F0F0F0]" : ""}`}
+                className={`${index < entries.length - 1 ? "border-b" : ""} px-0 py-3 ${
+                  index < entries.length - 1 ? "border-[#F0F0F0]" : ""
+                } ${onSymptomClick ? "cursor-pointer hover:bg-gray-50" : ""}`}
               >
                 <div className="flex items-center gap-5">
                   <div className="text-[#022C4E] text-[13px] font-bold leading-[19.5px] tracking-[1.04px] uppercase">
@@ -75,7 +84,9 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
                   </div>
                   <div className="flex justify-between items-center flex-1">
                     <div
-                      className={`text-[#022C4E] text-[15px] ${entry.hasWarning ? "font-bold" : ""} leading-[21.75px]`}
+                      className={`text-[#022C4E] text-[15px] ${
+                        entry.hasWarning ? "font-bold" : ""
+                      } leading-[21.75px]`}
                     >
                       {entry.symptoms}
                     </div>

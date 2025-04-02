@@ -4,9 +4,16 @@ import { LatestSymptom } from "@/components/dashboard/LatestSymptom";
 import { DateSelector } from "@/components/dashboard/DateSelector";
 import { SymptomLog } from "@/components/dashboard/SymptomLog";
 import { MetricCard } from "@/components/dashboard/MetricCard";
+import { DailyChecklist } from "@/components/dashboard/DailyChecklist";
+import { SymptomDialog } from "@/components/dashboard/SymptomDialog";
 
 const Index = () => {
   const [userName] = useState("Edric");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedSymptom, setSelectedSymptom] = useState({
+    name: "",
+    time: "",
+  });
 
   // Sample symptom log entries
   const symptomEntries = [
@@ -38,6 +45,14 @@ const Index = () => {
     console.log("View all symptoms clicked");
   };
 
+  const handleSymptomClick = (symptom: string, time: string) => {
+    setSelectedSymptom({
+      name: symptom,
+      time: time,
+    });
+    setDialogOpen(true);
+  };
+
   return (
     <div className="flex flex-col items-center w-full min-h-screen bg-neutral-50">
       <div className="w-full max-w-md flex flex-col items-center">
@@ -49,13 +64,17 @@ const Index = () => {
             time="10:30 AM"
             heartRate="Heart Rate 120 bpm"
             alert="Atrial Fibrillation was detected around the time this symptom was logged"
+            onClick={() => handleSymptomClick("Dizziness", "10:30 AM")}
           />
 
           <DateSelector />
+          
+          <DailyChecklist />
 
           <SymptomLog
             entries={symptomEntries}
             onViewAll={handleViewAllSymptoms}
+            onSymptomClick={handleSymptomClick}
           />
 
           <div className="flex flex-col gap-3">
@@ -167,6 +186,13 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      <SymptomDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        symptom={selectedSymptom.name}
+        time={selectedSymptom.time}
+      />
     </div>
   );
 };
