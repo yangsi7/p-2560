@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Header } from "@/components/dashboard/Header";
 import { LatestSymptom } from "@/components/dashboard/LatestSymptom";
@@ -15,7 +16,7 @@ const Index = () => {
     time: "",
   });
 
-  // Sample symptom log entries - limit to 3 entries
+  // Sample symptom log entries
   const symptomEntries = [
     {
       id: "1",
@@ -43,27 +44,27 @@ const Index = () => {
     },
   ];
   
-  // Enhanced timeline data - create more filled quality data
+  // Enhanced timeline data - more filled with quality data
   const timelineData = Array.from({ length: 96 }, (_, i) => {
-    // Default quality pattern - create fuller data representation
+    // Default quality pattern - alternating between good and null periods
     let quality = null;
     
     // Create more filled periods of quality data
-    if (i >= 0 && i <= 25) {
-      // Early morning - mostly good quality
-      quality = i % 6 === 0 ? 1 : 0;
-    } else if (i >= 28 && i <= 45) {
-      // Morning period - mixed quality
-      quality = i % 4 === 0 ? 1 : 0;
-    } else if (i >= 48 && i <= 65) {
+    if (i >= 0 && i <= 20) {
+      // Morning period - mostly good quality with some poor
+      quality = i % 7 === 0 ? 1 : 0;
+    } else if (i >= 24 && i <= 40) {
+      // Mid-day period - mixed quality
+      quality = i % 5 === 0 ? 1 : 0;
+    } else if (i >= 50 && i <= 65) {
       // Afternoon period - more poor quality
       quality = i % 3 === 0 ? 0 : 1;
-    } else if (i >= 68 && i <= 88) {
+    } else if (i >= 70 && i <= 90) {
       // Evening period - gradually improving
-      quality = i % 5 === 0 ? 1 : 0;
+      quality = i % 4 === 0 ? 1 : 0;
     }
     
-    // Only mark symptoms for the 3 entries in the log
+    // Only mark symptoms for the 3 entries we have in the log
     const hasSymptom = [5, 7, 15].includes(i);
     
     return { timeInterval: i, quality, hasSymptom };

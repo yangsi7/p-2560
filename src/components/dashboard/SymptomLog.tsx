@@ -33,9 +33,9 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex justify-between items-end mb-1">
+      <div className="flex justify-between items-end">
         <div className="text-[#022C4E] text-xl font-bold leading-[30px] tracking-[0.1px]">
-          Quality and Symptom Log
+          Symptom Log
         </div>
         <button
           onClick={onViewAll}
@@ -63,9 +63,9 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
         </button>
       </div>
       
-      {/* Quality timeline positioned here with adjusted width */}
-      <div className="mb-3 px-1">
-        <QualityTimeline data={timelineData} className="w-[98%] mx-auto" height={6} />
+      {/* Quality timeline positioned here */}
+      <div className="mb-2">
+        <QualityTimeline data={timelineData} className="w-full" />
       </div>
       
       <div className="bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-0 py-2 rounded-lg">
