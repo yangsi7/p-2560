@@ -7,7 +7,6 @@ import { SymptomLog } from "@/components/dashboard/SymptomLog";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DailyChecklist } from "@/components/dashboard/DailyChecklist";
 import { SymptomDialog } from "@/components/dashboard/SymptomDialog";
-import { QualityTimeline } from "@/components/dashboard/QualityTimeline";
 
 const Index = () => {
   const [userName] = useState("Edric");
@@ -25,6 +24,7 @@ const Index = () => {
       symptoms: "Dizziness, Headache",
       hasWarning: true,
       isHighlighted: false,
+      timeInterval: 5, // Corresponds to around 1:15 AM
     },
     {
       id: "2",
@@ -32,6 +32,7 @@ const Index = () => {
       symptoms: "Fatigue, Cough",
       hasWarning: false,
       isHighlighted: true,
+      timeInterval: 7, // Corresponds to around 1:45 AM
     },
     {
       id: "3",
@@ -39,33 +40,35 @@ const Index = () => {
       symptoms: "Cough, Chest discomfort/ tightness",
       hasWarning: false,
       isHighlighted: false,
+      timeInterval: 15, // Corresponds to around 3:45 AM
     },
   ];
   
-  // Sample timeline data
-  const timelineData = [
-    { timeInterval: 6, quality: 0, hasSymptom: false },
-    { timeInterval: 7, quality: 0, hasSymptom: false },
-    { timeInterval: 8, quality: 0, hasSymptom: false },
-    { timeInterval: 9, quality: 0, hasSymptom: false },
-    { timeInterval: 10, quality: 0, hasSymptom: true }, // 2:30 AM with symptom
-    { timeInterval: 11, quality: 1, hasSymptom: false },
-    { timeInterval: 12, quality: 1, hasSymptom: false },
-    { timeInterval: 13, quality: 1, hasSymptom: false },
-    { timeInterval: 14, quality: 0, hasSymptom: false },
-    { timeInterval: 15, quality: null, hasSymptom: false },
-    { timeInterval: 25, quality: 0, hasSymptom: false },
-    { timeInterval: 26, quality: 0, hasSymptom: false },
-    { timeInterval: 27, quality: 0, hasSymptom: true }, // 6:45 AM with symptom
-    { timeInterval: 42, quality: 1, hasSymptom: false },
-    { timeInterval: 43, quality: 1, hasSymptom: true }, // 10:45 AM with symptom
-    { timeInterval: 44, quality: 1, hasSymptom: false },
-    { timeInterval: 68, quality: 0, hasSymptom: false },
-    { timeInterval: 69, quality: 0, hasSymptom: false },
-    { timeInterval: 70, quality: 0, hasSymptom: false },
-    { timeInterval: 71, quality: 0, hasSymptom: true }, // 5:45 PM with symptom
-    { timeInterval: 72, quality: 0, hasSymptom: false },
-  ];
+  // Enhanced timeline data - more filled with quality data
+  const timelineData = Array.from({ length: 96 }, (_, i) => {
+    // Default quality pattern - alternating between good and null periods
+    let quality = null;
+    
+    // Create more filled periods of quality data
+    if (i >= 0 && i <= 20) {
+      // Morning period - mostly good quality with some poor
+      quality = i % 7 === 0 ? 1 : 0;
+    } else if (i >= 24 && i <= 40) {
+      // Mid-day period - mixed quality
+      quality = i % 5 === 0 ? 1 : 0;
+    } else if (i >= 50 && i <= 65) {
+      // Afternoon period - more poor quality
+      quality = i % 3 === 0 ? 0 : 1;
+    } else if (i >= 70 && i <= 90) {
+      // Evening period - gradually improving
+      quality = i % 4 === 0 ? 1 : 0;
+    }
+    
+    // Only mark symptoms for the 3 entries we have in the log
+    const hasSymptom = [5, 7, 15].includes(i);
+    
+    return { timeInterval: i, quality, hasSymptom };
+  });
 
   const handleViewAllSymptoms = () => {
     // Handle view all symptoms action
@@ -96,12 +99,11 @@ const Index = () => {
 
           <DateSelector />
           
-          <QualityTimeline data={timelineData} className="my-2" />
-          
           <DailyChecklist />
 
           <SymptomLog
             entries={symptomEntries}
+            timelineData={timelineData}
             onViewAll={handleViewAllSymptoms}
             onSymptomClick={handleSymptomClick}
           />
@@ -157,12 +159,6 @@ const Index = () => {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M12.3414 18.9874L12.3462 18.983L12.441 18.8977C12.4418 18.897 12.4427 18.8962 12.4435 18.8954C15.1 16.4819 17.1695 14.5997 18.5782 12.8527C19.9659 11.1317 20.5522 9.73195 20.5006 8.30203L20.5006 8.30085C20.4569 7.06174 19.8172 5.87987 18.8155 5.19784L18.8115 5.1951C16.902 3.88597 14.4831 4.46045 13.1401 6.0323L11.9997 7.36714L10.8592 6.0323C9.51939 4.46409 7.09876 3.89222 5.18467 5.19728C4.18329 5.87907 3.54292 7.06089 3.49878 8.29952C3.45119 9.73169 4.03935 11.1327 5.42462 12.8499C6.83181 14.5942 8.89963 16.4722 11.556 18.8756L11.5587 18.878L11.6759 18.9846C11.8627 19.1567 12.1544 19.1572 12.3414 18.9874ZM13.4497 20.0079L13.3497 20.0979C12.5897 20.7879 11.4197 20.7879 10.6597 20.0879L10.5497 19.9879C5.29967 15.2379 1.86966 12.1279 1.99966 8.24794C2.05966 6.54794 2.92966 4.91794 4.33966 3.95794C6.49292 2.48981 9.05863 2.77794 10.8865 4.05184C11.2997 4.3398 11.6752 4.67813 11.9997 5.05794C12.324 4.67827 12.6994 4.33971 13.1124 4.05132C14.9403 2.77498 17.5062 2.48153 19.6597 3.95794C21.0697 4.91794 21.9397 6.54794 21.9997 8.24794C22.1391 12.113 18.726 15.214 13.5101 19.9531L13.4497 20.0079Z"
-                    fill="#022C4E"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M11.4474 7.48706L14.0345 12.8835L14.9668 11.3073H17.3241V12.8073H15.8223L13.896 16.0643L11.3378 10.7282L10.1621 12.8073H6.67578V11.3073H9.28711L11.4474 7.48706Z"
                     fill="#022C4E"
                   />
                 </svg>

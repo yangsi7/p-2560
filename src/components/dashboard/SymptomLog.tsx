@@ -1,5 +1,7 @@
 
 import React from "react";
+import { QualityTimeline } from "./QualityTimeline";
+import { cn } from "@/lib/utils";
 
 interface SymptomEntry {
   id: string;
@@ -7,16 +9,25 @@ interface SymptomEntry {
   symptoms: string;
   hasWarning?: boolean;
   isHighlighted?: boolean;
+  timeInterval?: number; // Corresponds to timeline interval
+}
+
+interface TimelineDataPoint {
+  timeInterval: number; // 0-95 representing time intervals in a day
+  quality: number | null; // null = no data, 0 = good quality, 1 = poor quality
+  hasSymptom: boolean;
 }
 
 interface SymptomLogProps {
   entries: SymptomEntry[];
+  timelineData: TimelineDataPoint[];
   onViewAll: () => void;
   onSymptomClick: (symptom: string, time: string) => void;
 }
 
 export const SymptomLog: React.FC<SymptomLogProps> = ({
   entries,
+  timelineData,
   onViewAll,
   onSymptomClick,
 }) => {
@@ -51,6 +62,12 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
           </div>
         </button>
       </div>
+      
+      {/* Quality timeline positioned here */}
+      <div className="mb-2">
+        <QualityTimeline data={timelineData} className="w-full" />
+      </div>
+      
       <div className="bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-0 py-2 rounded-lg">
         <div className="pl-8 pr-4">
           {entries.map((entry, index) => (
