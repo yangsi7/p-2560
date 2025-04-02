@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlertCircle, X, Info, FileText, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 interface SymptomDialogProps {
   open: boolean;
@@ -49,9 +50,17 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
                 <AlertCircle className="h-5 w-5 text-[#022C4E]" />
               </div>
               <div className="flex flex-col">
-                <DialogTitle className="text-[#022C4E] text-lg font-bold tracking-tight text-left">
-                  {symptom}
-                </DialogTitle>
+                <div className="flex items-center gap-2 mb-1">
+                  <Badge 
+                    variant="outline" 
+                    className="border-[#6D2CCE] bg-[#EEE2FF] text-[#6D2CCE] rounded-lg px-2 py-0.5 text-xs"
+                  >
+                    New
+                  </Badge>
+                  <DialogTitle className="text-[#022C4E] text-lg font-bold tracking-tight text-left">
+                    {symptom}
+                  </DialogTitle>
+                </div>
                 <DialogDescription className="text-[#355F81] text-sm mt-0.5">
                   Logged at {time}
                 </DialogDescription>
@@ -88,15 +97,15 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
                 <div>
                   <p className="text-[#022C4E] font-medium text-sm">ECG Analysis</p>
                   <p className="text-[#355F81] text-sm">
-                    15 minutes of ECG data on either side of the symptom log time was sent for analysis.
+                    15 minutes of ECG data on either side of this symptom was analyzed.
                   </p>
                 </div>
               </div>
 
               <div className="mt-3 border-t border-[#E5EDF5] pt-3">
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-[#355F81] text-sm">Detected Atrial Fibrillation:</span>
-                  <span className="text-[#022C4E] font-semibold text-sm">28% of beats analyzed</span>
+                  <span className="text-[#355F81] text-sm">Atrial Fibrillation:</span>
+                  <span className="text-[#022C4E] font-semibold text-sm">28% of beats</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-[#355F81] text-sm">Heart Rate:</span>
@@ -105,13 +114,14 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               </div>
             </div>
             
-            <div className="text-[#355F81] text-[15px] leading-relaxed">
-              {details || 
-                "This symptom may be related to elevated heart rate patterns detected earlier. Would you like to log additional details about this symptom?"}
-            </div>
+            {details && (
+              <div className="text-[#355F81] text-[15px] leading-relaxed mb-3">
+                {details}
+              </div>
+            )}
             
             <div className="mt-3 text-xs text-[#8999AA] italic">
-              Disclaimer: This analysis is for informational purposes only and does not constitute medical advice. Please consult with a healthcare professional for proper diagnosis and treatment.
+              This analysis is for information only. Please consult your doctor for medical advice.
             </div>
           </TabsContent>
 
@@ -120,8 +130,8 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
               <div className="flex items-start gap-3 p-3 border border-[#E5EDF5] rounded-lg hover:bg-[#F8FAFD] transition-colors cursor-pointer">
                 <FileText className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-[#022C4E] font-medium text-sm">Understanding Your Symptoms</p>
-                  <p className="text-[#355F81] text-xs">Learn more about common cardiac symptoms and when to seek medical attention.</p>
+                  <p className="text-[#022C4E] font-medium text-sm">Understanding Symptoms</p>
+                  <p className="text-[#355F81] text-xs">Learn about cardiac symptoms and when to seek help</p>
                 </div>
               </div>
               
@@ -129,7 +139,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
                 <ExternalLink className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-[#022C4E] font-medium text-sm">Clinic FAQ</p>
-                  <p className="text-[#355F81] text-xs">Access frequently asked questions about your monitoring program.</p>
+                  <p className="text-[#355F81] text-xs">Answers to common questions about your monitoring</p>
                 </div>
               </div>
               
@@ -137,7 +147,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
                 <AlertCircle className="h-5 w-5 text-[#355F81] mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-[#022C4E] font-medium text-sm">Emergency Guidelines</p>
-                  <p className="text-[#355F81] text-xs">Know when and how to seek immediate medical care.</p>
+                  <p className="text-[#355F81] text-xs">When to seek immediate medical care</p>
                 </div>
               </div>
             </div>
