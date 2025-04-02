@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Header } from "@/components/dashboard/Header";
 import { LatestSymptom } from "@/components/dashboard/LatestSymptom";
@@ -7,7 +6,6 @@ import { SymptomLog } from "@/components/dashboard/SymptomLog";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { DailyChecklist } from "@/components/dashboard/DailyChecklist";
 import { SymptomDialog } from "@/components/dashboard/SymptomDialog";
-import { QualityTimeline } from "@/components/dashboard/QualityTimeline";
 
 const Index = () => {
   const [userName] = useState("Edric");
@@ -41,31 +39,6 @@ const Index = () => {
       isHighlighted: false,
     },
   ];
-  
-  // Sample timeline data
-  const timelineData = [
-    { timeInterval: 6, quality: 0, hasSymptom: false },
-    { timeInterval: 7, quality: 0, hasSymptom: false },
-    { timeInterval: 8, quality: 0, hasSymptom: false },
-    { timeInterval: 9, quality: 0, hasSymptom: false },
-    { timeInterval: 10, quality: 0, hasSymptom: true }, // 2:30 AM with symptom
-    { timeInterval: 11, quality: 1, hasSymptom: false },
-    { timeInterval: 12, quality: 1, hasSymptom: false },
-    { timeInterval: 13, quality: 1, hasSymptom: false },
-    { timeInterval: 14, quality: 0, hasSymptom: false },
-    { timeInterval: 15, quality: null, hasSymptom: false },
-    { timeInterval: 25, quality: 0, hasSymptom: false },
-    { timeInterval: 26, quality: 0, hasSymptom: false },
-    { timeInterval: 27, quality: 0, hasSymptom: true }, // 6:45 AM with symptom
-    { timeInterval: 42, quality: 1, hasSymptom: false },
-    { timeInterval: 43, quality: 1, hasSymptom: true }, // 10:45 AM with symptom
-    { timeInterval: 44, quality: 1, hasSymptom: false },
-    { timeInterval: 68, quality: 0, hasSymptom: false },
-    { timeInterval: 69, quality: 0, hasSymptom: false },
-    { timeInterval: 70, quality: 0, hasSymptom: false },
-    { timeInterval: 71, quality: 0, hasSymptom: true }, // 5:45 PM with symptom
-    { timeInterval: 72, quality: 0, hasSymptom: false },
-  ];
 
   const handleViewAllSymptoms = () => {
     // Handle view all symptoms action
@@ -95,8 +68,6 @@ const Index = () => {
           />
 
           <DateSelector />
-          
-          <QualityTimeline data={timelineData} className="my-2" />
           
           <DailyChecklist />
 

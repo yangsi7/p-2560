@@ -25,11 +25,9 @@ export const QualityTimeline: React.FC<QualityTimelineProps> = ({
 
   return (
     <div className={cn("w-full flex flex-col gap-1", className)}>
-      <div className="text-[#022C4E] text-sm font-medium">Quality & Symptoms Timeline</div>
-      
-      <div className="relative w-full h-6">
+      <div className="relative w-full h-5">
         {/* Base timeline track */}
-        <div className="absolute top-3 left-0 right-0 h-[3px] bg-gray-100 rounded-full"></div>
+        <div className="absolute top-2 left-0 right-0 h-[3px] bg-gray-100 rounded-full"></div>
         
         {/* Time intervals with quality indicators */}
         <div className="absolute top-0 left-0 right-0 flex h-full">
@@ -42,7 +40,7 @@ export const QualityTimeline: React.FC<QualityTimelineProps> = ({
               {point.quality !== null && (
                 <div 
                   className={cn(
-                    "absolute bottom-2 h-[3px] w-full",
+                    "absolute bottom-1 h-[3px] w-full",
                     point.quality === 0 
                       ? "bg-emerald-400/40 shadow-[0_0_3px_rgba(52,168,83,0.5)]" // Good quality with subtle glow
                       : "bg-amber-200/50" // Poor quality with subtle background
@@ -62,12 +60,12 @@ export const QualityTimeline: React.FC<QualityTimelineProps> = ({
         </div>
         
         {/* Time indicators */}
-        <div className="absolute -bottom-4 left-0 right-0 flex justify-between text-[10px] text-gray-500">
-          <span>12 AM</span>
-          <span>6 AM</span>
-          <span>12 PM</span>
-          <span>6 PM</span>
-          <span>12 AM</span>
+        <div className="absolute -bottom-3 left-0 right-0 flex justify-between text-[9px] text-gray-500">
+          <span>12a</span>
+          <span>6a</span>
+          <span>12p</span>
+          <span>6p</span>
+          <span>12a</span>
         </div>
       </div>
     </div>
