@@ -12,7 +12,7 @@ interface SymptomEntry {
 interface SymptomLogProps {
   entries: SymptomEntry[];
   onViewAll: () => void;
-  onSymptomClick?: (symptom: string, time: string) => void;
+  onSymptomClick: (symptom: string, time: string) => void;
 }
 
 export const SymptomLog: React.FC<SymptomLogProps> = ({
@@ -56,8 +56,8 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
           {entries.map((entry, index) => (
             <div 
               key={entry.id} 
-              className="relative"
-              onClick={() => onSymptomClick && onSymptomClick(entry.symptoms, entry.time)}
+              className="relative cursor-pointer hover:bg-gray-50"
+              onClick={() => onSymptomClick(entry.symptoms, entry.time)}
             >
               {entry.isHighlighted && (
                 <div>
@@ -74,9 +74,7 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
                 </div>
               )}
               <div
-                className={`${index < entries.length - 1 ? "border-b" : ""} px-0 py-3 ${
-                  index < entries.length - 1 ? "border-[#F0F0F0]" : ""
-                } ${onSymptomClick ? "cursor-pointer hover:bg-gray-50" : ""}`}
+                className={`${index < entries.length - 1 ? "border-b" : ""} px-0 py-3 ${index < entries.length - 1 ? "border-[#F0F0F0]" : ""}`}
               >
                 <div className="flex items-center gap-5">
                   <div className="text-[#022C4E] text-[13px] font-bold leading-[19.5px] tracking-[1.04px] uppercase">
@@ -84,9 +82,7 @@ export const SymptomLog: React.FC<SymptomLogProps> = ({
                   </div>
                   <div className="flex justify-between items-center flex-1">
                     <div
-                      className={`text-[#022C4E] text-[15px] ${
-                        entry.hasWarning ? "font-bold" : ""
-                      } leading-[21.75px]`}
+                      className={`text-[#022C4E] text-[15px] ${entry.hasWarning ? "font-bold" : ""} leading-[21.75px]`}
                     >
                       {entry.symptoms}
                     </div>

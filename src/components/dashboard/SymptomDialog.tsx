@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface SymptomDialogProps {
   open: boolean;
@@ -27,6 +28,16 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
   time,
   details,
 }) => {
+  const { toast } = useToast();
+
+  const handleAddDetails = () => {
+    toast({
+      title: "Adding details",
+      description: `Adding details for ${symptom}`,
+    });
+    onOpenChange(false);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="border-none sm:rounded-xl bg-white shadow-lg w-[90%] max-w-md p-0 gap-0 overflow-hidden">
@@ -69,6 +80,7 @@ export const SymptomDialog: React.FC<SymptomDialogProps> = ({
           </DialogClose>
           <Button
             className="bg-[#003D78] hover:bg-[#022C4E] text-white"
+            onClick={handleAddDetails}
           >
             Add details
           </Button>

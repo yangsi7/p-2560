@@ -17,7 +17,10 @@ export const LatestSymptom: React.FC<LatestSymptomProps> = ({
   onClick,
 }) => {
   return (
-    <div className={`w-full bg-white shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] p-5 rounded-[15px] ${onClick ? 'hover:bg-gray-50 transition-colors duration-200 cursor-pointer' : ''}`} onClick={onClick}>
+    <div 
+      className="w-full bg-white shadow-[0px_2px_4px_0px_rgba(0,0,0,0.10)] p-5 rounded-[15px] cursor-pointer hover:shadow-md transition-shadow"
+      onClick={onClick}
+    >
       <div className="flex items-center gap-2.5 pb-[15px]">
         <div>
           <svg
